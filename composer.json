@@ -1,0 +1,26 @@
+
+  "name": "ianmubangizi/php-mvc-framework",
+  "description": "This a base project using the MVC model in PHP",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ian Mubangizi",
+      "email": "io@ianmubangizi.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "framework\\": "./"
+    }
+  },
+  "require": {
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-fileinfo": "*",
+    "vlucas/phpdotenv": "*"
+  },
+  "require-dev": {
+    "ext-curl": "*",
+    "phpunit/phpunit": "*"
+  }
