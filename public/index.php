@@ -6,9 +6,7 @@ use framework\core\Application;
 
 $app = new Application();
 
-$app->router->get('/', function(){
-  return 'Hello World';
-});
+$app->router->get('/', 'main');
 
 $app->run();
 
