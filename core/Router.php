@@ -19,6 +19,9 @@ class Router {
    $path = $this->request->getPath();
    $method = $this->request->getMethod();
    
+   var_dump($path, $method);
+   
+   
    $callback = $this->routes[$method][$path] ?? false;
    var_dump($callback);
    if ($callback === false){
