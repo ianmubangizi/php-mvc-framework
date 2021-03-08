@@ -5,7 +5,7 @@ namespace framework\core;
 class Request {
   
   public function getPath(){
-    $path = $_SERVER["RESUEST_URI"] ?? "/";
+    $path = $_SERVER["REQUEST_URI"] ?? "/";
     $position = strpos($path, "?");
     
     if($position === false) return $path;
