@@ -23,7 +23,7 @@ class Router {
    
    if ($callback === false){
      Application::$app->response->set_status_code(404);
-     return "Not Found";
+     return $this->render('404');
    }
   
    if (is_string($callback)) {
