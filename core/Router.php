@@ -33,12 +33,22 @@ class Router {
   } 
   
   public function render($view){
-      $layoutContent = $this->get_layout_content();
-      include_once(__DIR__ . "/../views/$view.php");
+      $layout = $this->get_layout();
+      $content = $this->get_view_content($view);
+      return str_replace('{{content}}', $content, $layout);
   }
   
-  protected function get_layout_content(){
-      
+  protected function get_layout(){
+      ob_start()
+      include_once(Application::$ROOT_DIR . "/views/layouts/main.php");
+      return ob_get_clean();
+  }
+  
+  
+  protected function get_view_content($view){
+      ob_start()
+      include_once(Application::$ROOT_DIR . "/views/$view.php");
+      return ob_get_clean();
   }
 }
 
