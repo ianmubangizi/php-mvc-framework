@@ -14,8 +14,8 @@ class Application {
     self::$app = $this;
     self::$ROOT_DIR = $root_dir_path;
     $this->request = new Request();
-    $this->router = new Router($this->request);
     $this->response = new Response();
+    $this->router = new Router($this->request);
   }
   
   public function run(){
