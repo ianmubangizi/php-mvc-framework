@@ -33,7 +33,12 @@ class Router {
   } 
   
   public function render($view){
+      $layoutContent = $this->get_layout_content();
       include_once(__DIR__ . "/../views/$view.php");
+  }
+  
+  protected function get_layout_content(){
+      
   }
 }
 
