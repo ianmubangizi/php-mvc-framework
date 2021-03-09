@@ -39,14 +39,14 @@ class Router {
   }
   
   protected function get_layout(){
-      ob_start()
+      ob_start();
       include_once(Application::$ROOT_DIR . "/views/layouts/main.php");
       return ob_get_clean();
   }
   
   
   protected function get_view_content($view){
-      ob_start()
+      ob_start();
       include_once(Application::$ROOT_DIR . "/views/$view.php");
       return ob_get_clean();
   }
