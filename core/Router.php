@@ -22,6 +22,7 @@ class Router {
    $callback = $this->routes[$method][$path] ?? false;
    
    if ($callback === false){
+     Application::$app->response->set_status_code(404);
      return "Not Found";
    }
   
@@ -29,7 +30,7 @@ class Router {
      return $this->render($callback);
    }
    
-     return call_user_func($callback);
+   return call_user_func($callback);
   } 
   
   public function render($view){
