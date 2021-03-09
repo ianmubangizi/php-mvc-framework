@@ -24,7 +24,7 @@ class Router {
    $callback = $this->routes[$method][$path] ?? false;
    
    if ($callback === false){
-     Application::$app->response->set_status_code(404);
+     $this->response->set_status_code(404);
      return $this->render('404');
    }
   
