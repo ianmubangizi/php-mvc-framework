@@ -1,5 +1,7 @@
 <?php 
 
+namespace framework\core;
+
 class Response
 {
     
