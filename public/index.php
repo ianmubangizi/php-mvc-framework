@@ -6,7 +6,7 @@ use framework\core\Application;
 
 $app = new Application();
 
-$app->router->get('/', 'main');
+$app->router->get('/', 'home');
 
 $app->run();
 
