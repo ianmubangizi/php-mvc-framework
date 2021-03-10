@@ -8,12 +8,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
     <title>{{page_title}}</title>
   </head>
   <body>
      <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-body border-bottom shadow-sm">
-       <a class="p-2 text-dark" href="/"><p class="h5 my-0 me-md-auto fw-normal">Company</p></a> 
+       <p class="h5 my-0 me-md-auto fw-normal">Company</p>
        <nav class="my-2 my-md-0 me-md-3">
           <a class="p-2 text-dark" href="/contact">Contact Us</a>
           <a class="p-2 text-dark" href="#">Enterprise</a>
@@ -87,7 +86,6 @@
       <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
           <div class="col-12 col-md">
-            <img class="mb-2" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="24" height="19">
             <small class="d-block mb-3 text-muted">&copy; 2017–2021</small>
           </div>
           <div class="col-6 col-md">
