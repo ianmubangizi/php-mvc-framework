@@ -7,6 +7,10 @@ use framework\core\Application;
 $app = new Application(dirname(__DIR__));
 
 $app->router->get('/', 'home');
+$app->router->get('/contact', 'contact');
+$app->router->post('/contact', funcation(){
+   return "Submitting Message";
+});
 
 $app->run();
 
