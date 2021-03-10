@@ -13,8 +13,16 @@ class Router {
     $this->response = $response;
   }
   
+  private function set_route($method, $path, $callback){
+    $this->routes[$method][$path] = $callback;
+  }
+  
   public function get($path, $callback){
-    $this->routes['get'][$path] = $callback;
+    $this->set_route('get', $path, $callback);
+  }
+  
+  public function post($path, $callback){
+    $this->set_route('post', $path, $callback);
   }
   
   public function resolve(){
