@@ -2,6 +2,6 @@
 
 namespace framework\controllers;
 
-class Controller {
+abstract class Controller {
 
 }
