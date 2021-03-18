@@ -6,7 +6,7 @@ class View {
     
     protected $layout;
     
-    public function ($layout = 'main'){
+    public function __construct($layout = 'main'){
         $this->layout = $layout;
     }
     
