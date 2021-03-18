@@ -8,8 +8,8 @@ abstract class Controller {
     
     protected View $view;
     
-    public function __construct(View $view = new View){
-       $this->view = $view;
+    public function __construct(View $view = null){
+       $this->view = $view ?? new View;
     }
    
     public function render($view, $params = []){
