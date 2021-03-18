@@ -6,7 +6,7 @@ abstract class Controller {
     
     protected View $view;
     
-    public function __construct(View $view = new View){
+    public function __construct(View $view = new View()){
        $this->view = $view;
     }
    
