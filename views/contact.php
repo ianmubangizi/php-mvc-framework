@@ -1,3 +1,5 @@
+<h3><?= $message ?></h3>
+
 <form class="row g-3" method="post">
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Email address</label>
