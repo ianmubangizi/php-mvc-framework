@@ -7,7 +7,7 @@ abstract class Controller {
     protected View $view;
     
     public function __construct(View $view = null){
-       $this->view = $view ?? new View;
+       $this->view = $view === null ? new View : $view;
     }
    
     public function render($view, $params = []){
