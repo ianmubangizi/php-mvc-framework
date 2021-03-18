@@ -40,6 +40,10 @@ class Router {
      return $this->render($callback);
    }
    
+   if(is_array($callback)){
+       $callback[0] = $callback[0]()
+   }
+   
    return call_user_func($callback);
   } 
   
