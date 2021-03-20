@@ -47,7 +47,7 @@
         </div>
       </div>
     </nav>
-    <main class="container">
+    <main class="container py-2">
       {{content}}
       <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
