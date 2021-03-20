@@ -2,7 +2,7 @@
 
 namespace framework\controllers;
 
-class AuthController {
+class AuthController extends Controller {
     
     public function login(){
         return $this->render('auth/login');
