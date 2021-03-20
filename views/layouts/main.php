@@ -11,8 +11,8 @@
     <title><?= $page_title ?? 'PHP MVC FRAMEWORK' ?></title>
   </head>
   <body>
-     <header class="d-flex flex-row p-3 px-md-4 mb-3 bg-body border-bottom shadow-sm">
-       <p class="h5 my-0 me-md-auto fw-normal">Company</p>
+    <header class="d-flex flex-row flex-sm-column p-3 px-md-4 mb-3 bg-body border-bottom shadow-sm">
+       <p class="h5 my-0 me-md-auto fw-normal">PHP FRAMEWORK</p>
        <nav class="my-2 my-md-0 me-md-3">
           <a class="p-2 text-dark" href="/contact">Contact Us</a>
           <a class="p-2 text-dark" href="#">Enterprise</a>
