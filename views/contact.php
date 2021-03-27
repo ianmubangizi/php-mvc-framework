@@ -1,4 +1,4 @@
-<h3><?= $message ?></h3>
+<h3><?= $message??null?></h3>
 
 <form class="row g-3" method="post">
   <div class="mb-3">
