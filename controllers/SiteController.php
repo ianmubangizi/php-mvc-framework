@@ -13,7 +13,7 @@ class SiteController extends Controller {
   } 
   
   public function contact(Request $request){
-    $data = $request->get_method() === 'post'? ['message' => 'submitting form'] : [];
+    $data = $request->is('post') ? ['message' => 'submitting form'] : [];
     return $this->render('contact', $data);
   }
 }

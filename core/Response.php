@@ -10,7 +10,7 @@ class Response
         
     }
     
-    public function set_status_code(int $code){
+    public function set_status(int $code){
         http_response_code($code);
     }
 }

@@ -32,15 +32,15 @@ class Router {
   }
   
   public function resolve(){
-   $path = $this->request->get_path();
-   $method = $this->request->get_method();
+   $path = $this->request->path();
+   $method = $this->request->method();
    
    $callback = $this->routes[$method][$path] ?? '404';
    
    if (is_string($callback)) {
      switch ($callback) {
          case '404':
-             $this->response->set_status_code(404);
+             $this->response->set_status(404);
              break;
          default:
              break;
