@@ -8,15 +8,10 @@ use Mubangizi\controllers\AuthController;
 
 $app = new Application(dirname(__DIR__));
 
-$app->router->get('/', 'home');
-$app->router->get('/contact', 'contact');
-$app->router->post('/contact', [SiteController::class, 'handle_contact_submit']);
-
-$app->router->get('/auth/login', [AuthController::class, 'login']);
-$app->router->post('/auth/login', [AuthController::class, 'login']);
-$app->router->get('/auth/register', [AuthController::class, 'register']);
-$app->router->get('/auth/register', [AuthController::class, 'register']);
-
+$app->router->get('/', [SiteController::class, 'index']);
+$app->router->match('/contact', [SiteController::class, 'contact']);
+$app->router->match('/auth/login', [AuthController::class, 'login']);
+$app->router->match('/auth/register', [AuthController::class, 'register']);
 
 $app->run();
 

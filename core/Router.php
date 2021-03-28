@@ -25,6 +25,12 @@ class Router {
     $this->set_route('post', $path, $callback);
   }
   
+  public function match($path, $callback, $methods = ['get', 'post']){
+    foreach ($methods as $method) {
+     $this->set_route($method, $path, $callback);
+    } 
+  }
+  
   public function resolve(){
    $path = $this->request->get_path();
    $method = $this->request->get_method();
