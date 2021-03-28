@@ -13,4 +13,8 @@ abstract class Controller {
     public function render($view, $params = []){
        return $this->view->render($view, $params);
     }
+    
+    public function set_layout($layout){
+      $this->view->layout = $layout;
+    } 
 }

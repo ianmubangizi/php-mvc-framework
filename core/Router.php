@@ -49,7 +49,9 @@ class Router {
    }
    
    if(is_array($callback)){
-       $callback[0] = new $callback[0]();
+    $controller = new $callback[0]();
+    $callback[0] = $controller;
+    Application::$app->set_controller($controller);
    }
    
    return call_user_func($callback, $this->request, $this->response);
