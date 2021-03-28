@@ -1,8 +1,8 @@
 <?php
 
-namespace framework\controllers;
+namespace Mubangizi\controllers;
 
-use framework\core\Controller;
+use Mubangizi\Core\Controller;
 
 class AuthController extends Controller {
     

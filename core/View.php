@@ -1,6 +1,6 @@
 <?php
 
-namespace framework\core;
+namespace Mubangizi\Core;
 
 class View {
     

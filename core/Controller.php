@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-namespace framework\core;
+namespace Mubangizi\Core;
 
 abstract class Controller {
     
