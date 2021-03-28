@@ -2,6 +2,8 @@
 
 namespace framework\controllers;
 
+use framework\core\Controller;
+
 use framework\core\Request;
 
 class SiteController extends Controller {

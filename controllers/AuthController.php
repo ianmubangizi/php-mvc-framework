@@ -2,6 +2,8 @@
 
 namespace framework\controllers;
 
+use framework\core\Controller;
+
 class AuthController extends Controller {
     
     public function login(){
