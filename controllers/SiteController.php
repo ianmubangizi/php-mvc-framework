@@ -1,10 +1,12 @@
 <?php
 
-namespace Mubangizi\controllers;
+namespace Mubangizi\Controllers;
 
 use Mubangizi\Core\Controller;
 
 use Mubangizi\Core\Request;
+use Mubangizi\Core\Response;
+use Mubangizi\Core\Controller;
 
 class SiteController extends Controller {
   

@@ -3,8 +3,8 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Mubangizi\Core\Application;
-use Mubangizi\controllers\SiteController;
-use Mubangizi\controllers\AuthController;
+use Mubangizi\Controllers\SiteController;
+use Mubangizi\Controllers\AuthController;
 
 $app = new Application(dirname(__DIR__));
 

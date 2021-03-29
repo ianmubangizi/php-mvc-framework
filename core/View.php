@@ -4,13 +4,13 @@ namespace Mubangizi\Core;
 
 class View {
     
-    public $layout;
     public $views;
+    public $layout;
+    protected $params = [];
     protected $partials = [
       '{{footer}}' => 'layouts/partials/footer',
       '{{navigation}}' => 'layouts/partials/navbar'
-      ];
-      
+    ];
     protected $extras = [
       '{{meta_tags}}' => [],
       '{{stylesheet}}' => [],
@@ -22,7 +22,7 @@ class View {
         $this->views = Application::$ROOT_DIR . '/views';
     }
     
-    public function add_extra(string $tag, string  ...$tags){
+    public function add_extra(string $tag, string ...$tags){
       array_merge(
       $this->extras["{{$tag}}"], $tags);
     }
@@ -32,16 +32,16 @@ class View {
     }
     
     public function render($view, $params = []){
-      $exists = file_exists
-      ("{$this->views}/$view.php");
-      
+      $this->params = $params;
+      $exists = file_exists("{$this->views}/$view.php");
       $view = $exists ? $view : 'error';
       
-      foreach($params as $key => $value){
-        $$key = $value;
-      }
+      $layout = str_replace(
+        '{{view_layout}}',
+        $this->get_layout($this->layout),
+        $this->get_layout('base')
+      );
       
-      $layout = str_replace('{{view_layout}}', $this->get_layout($this->layout), $this->get_layout('base'));
       $this->set_html('{{content}}', $this->get_view($view));
       
       foreach($this->partials as $partial => $value)
@@ -65,6 +65,9 @@ class View {
     }
   
     protected function load($file){
+      foreach($this->params as $key => $value){
+        $$key = $value;
+      }
       ob_start();
       include_once($file);
       return ob_get_clean();
