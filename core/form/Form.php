@@ -26,7 +26,7 @@ tag;
     return '</form>';
   }
   
-  public function button($type, $text){
+  public function button($text, $type){
 return <<<tag
     <button 
       class="btn btn-md btn-primary"
@@ -36,21 +36,13 @@ return <<<tag
 tag;
   }
   
-  public function input($type, $name, $label){
-    $value = $this->model->{$name};
-    $is_invalid = $this->model->has_error($name) 
-      ? ' is-invalid' 
-      : '';
+  public function input($label, $name, $type = 'text', string $icon = null){
 return <<<tag
 <div class="form-group">
   <label for="$name">
     $label
   </label>
-  <input 
-    name="$name"
-    type="$type"
-    value="$value"
-    class="form-control$is_invalid">
+  {$this->_input($type, $name, $icon)}
   <div class="invalid-feedback">
     {$this->model->get_error($name)}
   </div>
@@ -58,22 +50,28 @@ return <<<tag
 tag;
   }
   
-  public function input_with_icon(){
-return <<<tag
-    <div class="form-group">
-      <label for="email">
-        Email
-      </label>
-      <div class="input-group">
-        <div class="input-group-text">
-          <i class="fa fa-envelope"></i>
-        </div>
-        <input 
-          name="email" 
-          type="email" 
-          class="form-control">
-      </div>
-    </div>
-tag;
+  public function _input($type, $name, $icon){
+    $value = $this->model->{$name};
+    $is_invalid = $this->model->has_error($name) 
+      ? ' is-invalid' 
+      : '';
+    $input = <<<input
+<input 
+  name="$name"
+  type="$type"
+  value="$value"
+  class="form-control$is_invalid">
+input;
+
+return $icon !== null
+? <<<tag
+<div class="input-group">
+  <div class="input-group-text">
+    <i class="fa fa-$icon"></i>
+  </div>
+  $input
+</div>
+tag
+: $input;
   }
 } 
