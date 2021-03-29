@@ -43,9 +43,6 @@ return <<<tag
     $label
   </label>
   {$this->_input($type, $name, $icon)}
-  <div class="invalid-feedback">
-    {$this->model->get_error($name)}
-  </div>
 </div>
 tag;
   }
@@ -61,11 +58,14 @@ tag;
   type="$type"
   value="$value"
   class="form-control$is_invalid">
+<div class="invalid-feedback">
+  {$this->model->get_error($name)}
+</div> 
 input;
 
 return $icon !== null
 ? <<<tag
-<div class="input-group">
+<div class="input-group has-validation">
   <div class="input-group-text">
     <i class="fa fa-$icon"></i>
   </div>
