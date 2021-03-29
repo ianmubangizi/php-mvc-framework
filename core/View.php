@@ -8,7 +8,8 @@ class View {
     public $views;
     protected $partials = [
       '{{footer}}' => 'layouts/partials/footer',
-      '{{navigation}}' => 'layouts/partials/navbar'];
+      '{{navigation}}' => 'layouts/partials/navbar'
+      ];
       
     protected $extras = [
       '{{meta_tags}}' => [],
@@ -16,7 +17,7 @@ class View {
       '{{javascript}}' => []
     ];
     
-    public function __construct($layout = 'base'){
+    public function __construct($layout = 'main'){
         $this->layout = $layout;
         $this->views = Application::$ROOT_DIR . '/views';
     }
@@ -36,8 +37,12 @@ class View {
       
       $view = $exists ? $view : 'error';
       
-      $layout = $this->get($this->layout);
-      $this->set_html('{{content}}', $this->get_view_content($view, $params));
+      foreach($params as $key => $value){
+        $$key = $value;
+      }
+      
+      $layout = str_replace('{{view_layout}}', $this->get_layout($this->layout), $this->get_layout('base'));
+      $this->set_html('{{content}}', $this->get_view($view));
       
       foreach($this->partials as $partial => $value)
       {
@@ -59,20 +64,17 @@ class View {
       return $layout;
     }
   
-    protected function get($layout) {
-      return $this->load("{$this->views}/layouts/{$layout}.php");
-    }
-    
     protected function load($file){
       ob_start();
       include_once($file);
       return ob_get_clean();
     }
   
-    protected function get_view_content($view, $params = []){
-      foreach($params as $key => $value){
-        $$key = $value;
-      }
+    protected function get_layout($layout){
+      return $this->load("{$this->views}/layouts/{$layout}.php");
+    }
+    
+    protected function get_view($view){
       return $this->load("{$this->views}/$view.php");
     }
 
