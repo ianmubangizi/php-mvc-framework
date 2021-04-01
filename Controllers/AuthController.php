@@ -9,9 +9,16 @@ use Mubangizi\Core\Controller;
 
 class AuthController extends Controller {
     
-    public function login(){
-       $this->set_layout('auth');
-        return $this->render('auth/login');
+    public function login(Request $request, Response $response){
+        $this->set_layout('auth');
+        $auth = new User();
+        if($request->is('post')){
+          $auth->load_data($request->body());
+          $auth->validate();
+        }
+        return $this->render('auth/login', [
+          'model' => $auth
+        ]);
     }
     
     public function register(Request $request, Response $response){

@@ -12,7 +12,8 @@ class Form {
     $this->model = $model;
   }
   
-  public static function open($method, $action = '', $classes = 'py-3'){
+  public static function open($method, $action = '', $classes = ['py-3']){
+  $classes = implode(' ', $classes);
 return <<<tag
 <form
  method="$method"
@@ -26,13 +27,14 @@ tag;
     return '</form>';
   }
   
-  public function button($text, $type){
+  public function button($text, $type, $classes = ['btn', 'btn-md', 'btn-primary']){
+    $classes = implode(' ', $classes);
 return <<<tag
-    <button 
-      class="btn btn-md btn-primary"
-      type="type">
-        $text
-    </button>
+  <button 
+    class="$classes"
+    type="type">
+    $text
+  </button>
 tag;
   }
   
@@ -50,14 +52,15 @@ tag;
   public function _input($type, $name, $icon){
     $value = $this->model->{$name};
     $is_invalid = $this->model->has_error($name) 
-      ? ' is-invalid' 
-      : '';
+      ? 'is-invalid' 
+      : null;
+    $classes = implode(' ', ['form-control', $is_invalid]);
     $input = <<<input
-<input 
+<input
   name="$name"
   type="$type"
   value="$value"
-  class="form-control$is_invalid">
+  class="$classes">
 <div class="invalid-feedback">
   {$this->model->get_error($name)}
 </div> 
