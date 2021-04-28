@@ -2,7 +2,8 @@
 
 namespace Mubangizi\Core;
 
-abstract class Model {
+abstract class Model
+{
 
   public $errors = [];
   public $validation_messages = [
@@ -25,21 +26,20 @@ abstract class Model {
   public const RULE_REQUIRED = 'required';
 
   public abstract function rules(): array;
-  
-  public function load_data($model){
-    foreach ($model as $key => $value){
-      if(property_exists($this, $key)){
+
+  public function data($model)
+  {
+    foreach ($model as $key => $value) {
+      if (property_exists($this, $key)) {
         $this->{$key} = $value;
       }
     }
   }
 
-  public function validate(){
-   // echo('<pre>');
-   // var_dump($this->rules());
-    
-    foreach($this->rules() as $attribute => $rules){
-      foreach($rules as $rule_name => $rule){
+  public function validate()
+  {
+    foreach ($this->rules() as $attribute => $rules) {
+      foreach ($rules as $rule_name => $rule) {
         if (is_string($rule_name)) {
           $this->check($attribute, $rule_name, $rule);
         } else {
@@ -47,29 +47,31 @@ abstract class Model {
         }
       }
     }
-    // var_dump(['errors' => $this->errors]);
-    // echo('</pre>');
+
     return empty($this->errors);
   }
 
-  public function has_error($attribute){
+  public function has_error($attribute)
+  {
     return $this->errors[$attribute] ?? false;
   }
 
-  public function add_error($attribute, $rule_name, $rule){
+  public function add_error($attribute, $rule_name, $rule)
+  {
     $message = $this->validation_messages[$rule_name] ?? '';
-    $message = str_replace('{attribute}', $attribute, $message);
+    $message = str_replace('{attribute}', str_replace('_', ' ', $attribute), $message);
     $message = str_replace('{value}', $this->{$attribute}, $message);
     $message = str_replace('{rule}', $rule, $message);
     $this->errors[$attribute][] = $message;
   }
-  
-  public function get_error($attribute, int|string $index = 0) {
+
+  public function get_error($attribute, int|string $index = 0)
+  {
     $errors = $this->errors[$attribute] ?? [];
     if ($index === 'all') {
       return $errors;
     }
-    if($index === 'last') {
+    if ($index === 'last') {
       return end($errors);
     }
     if (array_key_exists($index, $errors)) {
@@ -77,20 +79,20 @@ abstract class Model {
     }
   }
 
-  public function check($attribute, $rule_name, $rule = null){
+  public function check($attribute, $rule_name, $rule = null)
+  {
     $is_error = false;
     $value = $this->{$attribute};
-   // var_dump([$rule_name => ['rule' => $rule, $attribute, $value]]);
     switch ($rule_name) {
       case self::RULE_MIN:
-        $is_error = is_string($value) 
-        ? strlen($value) < $rule 
-        : $value < $rule;
+        $is_error = is_string($value)
+          ? strlen($value) < $rule
+          : $value < $rule;
         break;
       case self::RULE_MAX:
-        $is_error = is_string($value) 
-        ? strlen($value) > $rule 
-        : $value > $rule;
+        $is_error = is_string($value)
+          ? strlen($value) > $rule
+          : $value > $rule;
         break;
       case self::RULE_MATCH:
         $is_error = $value !== $this->{$rule};
@@ -110,7 +112,7 @@ abstract class Model {
       default:
         break;
     }
-    
+
     if ($is_error === true) {
       $this->add_error($attribute, $rule_name, $rule);
     }
