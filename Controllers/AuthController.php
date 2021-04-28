@@ -13,7 +13,7 @@ class AuthController extends Controller {
         $this->set_layout('auth');
         $auth = new User();
         if($request->is('post')){
-          $auth->load_data($request->body());
+          $auth->data($request->body());
           $auth->validate();
         }
         return $this->render('auth/login', [
@@ -24,7 +24,7 @@ class AuthController extends Controller {
     public function register(Request $request, Response $response){
       $user = new User();
       if($request->is('post')){
-          $user->load_data($request->body());
+          $user->data($request->body());
           $user->validate();
       }
       $this->set_layout('auth');

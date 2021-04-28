@@ -5,6 +5,7 @@ namespace Mubangizi\Controllers;
 use Mubangizi\Core\Request;
 use Mubangizi\Core\Response;
 use Mubangizi\Core\Controller;
+use Mubangizi\Models\Contact;
 
 class SiteController extends Controller {
   
@@ -13,7 +14,14 @@ class SiteController extends Controller {
   } 
   
   public function contact(Request $request){
-    $data = $request->is('post') ? ['message' => 'submitting form'] : [];
-    return $this->render('contact', $data);
+    $form = new Contact;
+    if($request->is('post')) {
+      $form->data($request->body());
+      $form->validate();
+    }
+    
+    return $this->render('contact', [
+      'model' => $form
+    ]);
   }
 }
