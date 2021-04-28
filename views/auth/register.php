@@ -1,5 +1,5 @@
 <?php
-  
+  /** @var Mubangizi\Models\User $model */
   use Mubangizi\Core\Form\Form;
   
   $form = new Form($model);
@@ -15,7 +15,7 @@
     <?= $form->input('Last name', 'last_name') ?>
     <?= $form->input('Your email', 'email', 'email', 'envelope') ?>
     <?= $form->input('Password', 'password', 'password', 'lock') ?>
-    <?= $form->input('Confirm Password ', 'confirm_password', 'password', 'lock') ?>
+    <?= $form->input('Confirmation', 'confirm_password', 'password', 'lock') ?>
     <?= $form->button('Register', 'submit') ?>
   </div>
 <?= $form::close() ?>
