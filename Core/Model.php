@@ -124,7 +124,6 @@ abstract class Model
         break;
       case self::RULE_UNIQUE:
         $is_error = $rule['callback']($value);
-        var_dump($is_error);
         break;
       case self::RULE_IS_FILE:
         break;
