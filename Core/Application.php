@@ -32,6 +32,11 @@ class Application {
   public function get_controller(){
     return $this->controller;
   }
+
+  public static function log(string $message)
+  {
+    echo '[' . date('Y-m-d - h:i:s') . ']: ' . $message . PHP_EOL;
+  }
 }
 
 ?>
