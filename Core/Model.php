@@ -9,6 +9,7 @@ abstract class Model
   public $validation_messages = [
     self::RULE_MIN => '{attribute} must be at least {rule} characters.',
     self::RULE_MAX => '{attribute} must not be more than {rule} characters.',
+    self::RULE_REGEX => '{message}',
     self::RULE_MATCH => 'The {attribute} must match the {rule}.',
     self::RULE_PHONE => 'The number \'{value}\' you provided is not a valid {attribute}.',
     self::RULE_EMAIL => 'This \'{value}\' does not seem to be a valid {attribute} address.',
@@ -16,13 +17,15 @@ abstract class Model
     self::RULE_IS_FILE => '{attribute} must be part of a valid {rule} format.',
     self::RULE_REQUIRED => 'Please provide, {attribute} to proceed.',
   ];
+
   public const RULE_MIN = 'min';
   public const RULE_MAX = 'max';
+  public const RULE_REGEX = 'regex';
   public const RULE_MATCH = 'match';
   public const RULE_PHONE = 'phone';
   public const RULE_EMAIL = 'email';
-  public const RULE_UNIQUE = 'unique';
   public const RULE_IS_FILE = 'file';
+  public const RULE_UNIQUE = 'unique';
   public const RULE_REQUIRED = 'required';
 
   public abstract function rules(): array;
@@ -36,7 +39,7 @@ abstract class Model
     }
   }
 
-  public function validate()
+  public function is_valid()
   {
     foreach ($this->rules() as $attribute => $rules) {
       foreach ($rules as $rule_name => $rule) {
@@ -58,10 +61,17 @@ abstract class Model
 
   public function add_error($attribute, $rule_name, $rule)
   {
+
     $message = $this->validation_messages[$rule_name] ?? '';
-    $message = str_replace('{attribute}', str_replace('_', ' ', $attribute), $message);
-    $message = str_replace('{value}', $this->{$attribute}, $message);
-    $message = str_replace('{rule}', $rule, $message);
+
+    if ($rule_name === self::RULE_REGEX) {
+      $message = str_replace('{message}', $rule['message'], $message);
+    } else {
+      $message = str_replace('{attribute}', str_replace('_', ' ', $attribute), $message);
+      $message = str_replace('{value}', $this->{$attribute}, $message);
+      $message = str_replace('{rule}', $rule, $message);
+    }
+
     $this->errors[$attribute][] = $message;
   }
 
@@ -98,6 +108,8 @@ abstract class Model
         $is_error = $value !== $this->{$rule};
         break;
       case self::RULE_PHONE:
+        $code = $rule['country_code'];
+        $is_error = preg_match("/^((?:\+$code|$code)|0)(\d{2})[- ]?(\d{3})[- ]?(\d{4})$/", $value) === 0;
         break;
       case self::RULE_EMAIL:
         $is_error = !filter_var($value, FILTER_VALIDATE_EMAIL);
@@ -105,6 +117,9 @@ abstract class Model
       case self::RULE_UNIQUE:
         break;
       case self::RULE_IS_FILE:
+        break;
+      case self::RULE_REGEX:
+        $is_error = preg_match($rule['regex'], $value) === 0;
         break;
       case self::RULE_REQUIRED:
         $is_error = $value === null || empty($value);
