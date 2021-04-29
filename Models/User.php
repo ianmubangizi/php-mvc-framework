@@ -6,13 +6,20 @@ use Mubangizi\Core\Table;
 
 class User extends Table
 {
+
   public $email;
   public $password;
-  public $is_active;
   public $last_name;
+  public $joined_at;
   public $first_name;
   public $profile_img;
   public $confirm_password;
+  public int $is_active = self::STATUS_INACTIVE;
+
+  public const STATUS_ACTIVE = 1;
+  public const STATUS_INACTIVE = 0;
+  public const STATUS_DEACTIVATED = -1;
+
 
   public function table_name(): string
   {
@@ -35,7 +42,15 @@ class User extends Table
   public function rules(): array
   {
     return [
-      'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+      'email' => [
+        self::RULE_EMAIL,
+        self::RULE_REQUIRED,
+        self::RULE_UNIQUE => [
+          'callback' => function ($value) {
+            return true;
+          }
+        ]
+      ],
       'password' => [
         self::RULE_REQUIRED,
         self::RULE_MIN => 8,

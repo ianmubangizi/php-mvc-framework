@@ -11,9 +11,9 @@ abstract class Model
     self::RULE_MAX => '{attribute} must not be more than {rule} characters.',
     self::RULE_REGEX => '{message}',
     self::RULE_MATCH => 'The {attribute} must match the {rule}.',
-    self::RULE_PHONE => 'The number \'{value}\' you provided is not a valid {attribute}.',
-    self::RULE_EMAIL => 'This \'{value}\' does not seem to be a valid {attribute} address.',
-    self::RULE_UNIQUE => 'The \'{value}\' is already in use.',
+    self::RULE_PHONE => 'The number {value} you provided is not a valid {attribute}.',
+    self::RULE_EMAIL => 'This {value} does not seem to be a valid {attribute} address.',
+    self::RULE_UNIQUE => 'The {value} is already in use.',
     self::RULE_IS_FILE => '{attribute} must be part of a valid {rule} format.',
     self::RULE_REQUIRED => 'Please provide, {attribute} to proceed.',
   ];
@@ -64,12 +64,20 @@ abstract class Model
 
     $message = $this->validation_messages[$rule_name] ?? '';
 
-    if ($rule_name === self::RULE_REGEX) {
-      $message = str_replace('{message}', $rule['message'], $message);
-    } else {
-      $message = str_replace('{attribute}', str_replace('_', ' ', $attribute), $message);
-      $message = str_replace('{value}', $this->{$attribute}, $message);
-      $message = str_replace('{rule}', $rule, $message);
+    switch ($rule_name) {
+      case self::RULE_REGEX:
+        $message = str_replace('{message}', $rule['message'], $message);
+        break;
+      case self::RULE_UNIQUE:
+        $message = str_replace('{value}', $attribute, $message);
+        break;
+      default:
+        if (!is_array($rule)) {
+          $message = str_replace('{attribute}', str_replace('_', ' ', $attribute), $message);
+          $message = str_replace('{value}', $this->{$attribute}, $message);
+          $message = str_replace('{rule}', $rule, $message);
+        }
+        break;
     }
 
     $this->errors[$attribute][] = $message;
@@ -115,6 +123,8 @@ abstract class Model
         $is_error = !filter_var($value, FILTER_VALIDATE_EMAIL);
         break;
       case self::RULE_UNIQUE:
+        $is_error = $rule['callback']($value);
+        var_dump($is_error);
         break;
       case self::RULE_IS_FILE:
         break;
