@@ -2,8 +2,10 @@
 
 namespace Mubangizi\Controllers;
 
+use Mubangizi\Core\Application;
 use Mubangizi\Core\Request;
 use Mubangizi\Core\Controller;
+use Mubangizi\Core\Widget\Alert;
 use Mubangizi\Models\Contact;
 
 class SiteController extends Controller
@@ -19,7 +21,8 @@ class SiteController extends Controller
     $form = new Contact;
     if ($request->is('post')) {
       $form->data($request->body());
-      if ($form->is_valid()) {
+      if ($form->is_valid() && $form->send()) {
+        Application::$app->alert("Your message has been sent.", Alert::SUCCESS);
       }
     }
 
