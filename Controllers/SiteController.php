@@ -3,23 +3,26 @@
 namespace Mubangizi\Controllers;
 
 use Mubangizi\Core\Request;
-use Mubangizi\Core\Response;
 use Mubangizi\Core\Controller;
 use Mubangizi\Models\Contact;
 
-class SiteController extends Controller {
-  
-  public function index(){
+class SiteController extends Controller
+{
+
+  public function index()
+  {
     return $this->render('home');
-  } 
-  
-  public function contact(Request $request){
+  }
+
+  public function contact(Request $request)
+  {
     $form = new Contact;
-    if($request->is('post')) {
+    if ($request->is('post')) {
       $form->data($request->body());
-      $form->validate();
+      if ($form->is_valid()) {
+      }
     }
-    
+
     return $this->render('contact', [
       'model' => $form
     ]);
