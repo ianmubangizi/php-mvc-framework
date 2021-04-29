@@ -28,7 +28,7 @@ class User extends Table
       'is_active',
       'first_name',
       'profile_img',
-      ['name' => 'password_hash', 'value' => hash('sha256', $this->password)],
+      ['name' => 'password_hash', 'value' => password_hash($this->password, PASSWORD_BCRYPT)],
     ];
   }
 
