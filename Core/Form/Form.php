@@ -44,7 +44,7 @@ class Form
     return '</form>';
   }
 
-  public function button($text, $type, $classes = ['btn', 'btn-md', 'btn-primary'])
+  public function button($text, $type, $classes = ['btn', 'btn-lg', 'btn-primary'])
   {
     $classes = implode(' ', $classes);
     return <<<tag
