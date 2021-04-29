@@ -3,10 +3,12 @@
 namespace Mubangizi\Controllers;
 
 use Mubangizi\Models\User;
+use Mubangizi\Models\Auth;
 use Mubangizi\Core\Request;
 use Mubangizi\Core\Response;
 use Mubangizi\Core\Controller;
-use Mubangizi\Models\Auth;
+use Mubangizi\Core\Application;
+use Mubangizi\Core\Widget\Alert;
 
 class AuthController extends Controller
 {
@@ -32,12 +34,14 @@ class AuthController extends Controller
     $user = new User();
     if ($request->is('post')) {
       $user->data($request->body());
-      if ($user->is_valid()) {
-        $user->save();
+      if ($user->is_valid() && $user->save()) {
+        Application::$app->alert("Welcome $user, you have created your new account", Alert::SUCCESS);
+        return $response->redirect('/');
       }
     }
+
     return $this->render('auth/register', [
-      'model' => $user
+      'model' => $user,
     ]);
   }
 }

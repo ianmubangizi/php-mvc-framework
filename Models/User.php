@@ -47,7 +47,7 @@ class User extends Table
         self::RULE_REQUIRED,
         self::RULE_UNIQUE => [
           'callback' => function ($value) {
-            return true;
+            return $this->exists($value, 'email');
           }
         ]
       ],
@@ -65,5 +65,10 @@ class User extends Table
       'profile_img' => [self::RULE_IS_FILE => ['jpg', 'png', 'jpeg']],
       'confirm_password' => [self::RULE_REQUIRED, self::RULE_MATCH => 'password']
     ];
+  }
+
+  public function __toString()
+  {
+    return $this->first_name . ' ' . $this->last_name;
   }
 }
