@@ -15,6 +15,7 @@ class Database
       $dsn = $config['DATABASE_DSN'] ?? '';
       $this->db = new PDO($dsn);
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $this->apply_migrations();
     } catch (\PDOException $e) {
       throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
