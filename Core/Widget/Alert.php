@@ -20,11 +20,7 @@ class Alert extends Widget
     {
         $this->type = $type;
         $this->message = $message;
-    }
-
-    protected function html(): string
-    {
-        return <<<s
+        $this->html = <<<s
             <div class="position-absolute top-0 start-50 translate-middle-x mt-5">
                 <div class="alert alert-$this->type" role="alert" style="min-width: 280px; max-width: 360px;">
                     $this->message
