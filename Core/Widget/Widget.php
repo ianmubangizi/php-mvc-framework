@@ -2,14 +2,26 @@
 
 namespace Mubangizi\Core\Widget;
 
+use Closure;
 
-abstract class Widget
+abstract class Widget implements Html
 {
+    protected string | Closure $html = '';
+    protected string $icon = '';
+    protected string $name = '';
+    protected string $type = '';
+    protected string $label = '';
+    protected string $styles = '';
+    protected array $classes = [];
+    protected array $callbacks = [];
 
-    protected abstract function html(): string;
+    public function render(): string
+    {
+        return is_string($this->html) ? $this->html : call_user_func($this->html);
+    }
 
     public function __toString()
     {
-        return $this->html();
+        return $this->render();
     }
 }
