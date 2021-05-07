@@ -7,11 +7,12 @@ use Closure;
 abstract class Widget implements Html
 {
     protected string | Closure $html = '';
-    protected string $icon = '';
+    protected ?string $icon = null;
     protected string $name = '';
     protected string $type = '';
     protected string $label = '';
     protected string $styles = '';
+    protected string $placeholder = '';
     protected array $classes = [];
     protected array $callbacks = [];
 
