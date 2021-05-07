@@ -21,7 +21,7 @@ class User extends Table
   public const STATUS_DEACTIVATED = -1;
 
 
-  public function table_name(): string
+  public static function table_name(): string
   {
     return 'users';
   }

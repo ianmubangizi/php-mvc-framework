@@ -12,12 +12,12 @@ abstract class Table extends Model
         return Application::$app->database->db;
     }
 
-    protected function primary_key()
+    protected static function primary_key(): string
     {
         return 'id';
     }
 
-    public abstract function table_name(): string;
+    public static abstract function table_name(): string;
     protected abstract function table_columns(): array;
 
     public function columns()
@@ -51,17 +51,40 @@ abstract class Table extends Model
         return static::db()->prepare($sql);
     }
 
-    public function exists(int|string $value, string $column = null, string $table = null)
+    public static function exists(int|string $value, string $column = null, string $table = null)
     {
         $key = $column !== null
             ? $column
-            : $this->primary_key();
+            : static::primary_key();
         $table = $table !== null
             ? $table
-            : $this->table_name();
-        $statement = $this->prepare("SELECT $key FROM $table WHERE $key = :param;");
+            : static::table_name();
+        $statement = static::prepare("SELECT $key FROM $table WHERE $key = :param;");
         $statement->bindValue(':param', $value);
         $statement->execute();
         return is_array($statement->fetch()) ? true : false;
+    }
+
+
+    /**
+     * Ideas
+     * 
+     * ['AND' => ['name' => $name, 'id' => 1], 'OR' => ['email' => $email], 'NOT' => ['id' => $other]]
+     *
+     * (['name', '=', $name], 'AND', 'NOT', $other)
+     */
+    public static function where(array $query)
+    {
+        $keys = array_keys($query);
+        $table = static::table_name();
+        $where = implode(' AND ', array_map(fn ($key) => "$key = :$key", $keys));
+        $statement = static::prepare("SELECT * FROM $table WHERE $where;");
+        var_dump($statement);
+        foreach ($query as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+        var_dump($statement);
+        $statement->execute();
+        return $statement->fetchObject(static::class);
     }
 }
