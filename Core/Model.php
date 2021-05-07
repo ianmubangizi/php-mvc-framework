@@ -34,7 +34,7 @@ abstract class Model
   {
     foreach ($model as $key => $value) {
       if (property_exists($this, $key)) {
-        $this->{$key} = $value;
+        $this->{$key} = filter_var($value, FILTER_SANITIZE_STRING);
       }
     }
   }
