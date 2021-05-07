@@ -44,7 +44,8 @@ class Application
 
   public static function log(string $message)
   {
-    echo '[' . date('Y-m-d - h:i:s') . ']: ' . $message . PHP_EOL;
+    $msg_log = '[' . date('Y-m-d - h:i:s') . ']: ' . $message . PHP_EOL;
+    error_log($msg_log);
   }
 
   public function display_alert_message(): string
