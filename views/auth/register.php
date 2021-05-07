@@ -13,12 +13,12 @@ $form = new Form($model);
     Register
   </h1>
   <p>Start using the application with an account</p>
-  <?= $form->input('First name', 'first_name') ?>
-  <?= $form->input('Last name', 'last_name') ?>
-  <?= $form->input('Your email', 'email', 'email', 'envelope') ?>
-  <?= $form->input('Password', 'password', 'password', 'lock') ?>
-  <?= $form->input('Confirmation', 'confirm_password', 'password', 'lock') ?>
+  <?= $form->field->input('First name')->name('first_name') ?>
+  <?= $form->field->input('Last name')->name('last_name') ?>
+  <?= $form->field->input('Your email')->name('email')->type('email')->icon('envelope') ?>
+  <?= $form->field->input('Password')->name('password')->type('password')->icon('lock') ?>
+  <?= $form->field->input('Confirmation')->name('confirm_password')->type('password')->icon('lock') ?>
   <p>Already got an account? <a href="/auth/login">Login</a></p>
-  <?= $form->button('Register', 'submit') ?>
+  <?= $form->field->button('Register')->type('submit') ?>
 </div>
 <?= $form::close() ?>

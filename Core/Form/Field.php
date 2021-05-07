@@ -39,6 +39,7 @@ class Field extends Widget implements Button, Input, TextArea
   public function input($label): Input
   {
     $input = new Field($this->model);
+    $input->type = 'text';
     $input->html = fn () => <<<tag
       <div class="form-group">
         <label for="$input->name">
