@@ -1,10 +1,9 @@
 <?php
 
-/**
- * @var Mubangizi\Models\User $model
- */
-
 use Mubangizi\Core\Form\Form;
+use Mubangizi\Core\Model\Auth;
+
+/** @var Auth $model */
 
 $form = new Form($model);
 ?>
