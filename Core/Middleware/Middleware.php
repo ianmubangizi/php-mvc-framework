@@ -3,7 +3,7 @@
 
 namespace Mubangizi\Core\Middleware;
 
-interface Middleware
+abstract class Middleware
 {
-    public function execute();
+    public abstract function execute();
 }
