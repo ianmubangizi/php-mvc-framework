@@ -13,7 +13,9 @@ class Application
   public Response $response;
   public Database $database;
   public Controller $controller;
+  public static ?array $auth;
   public static string $ROOT_DIR;
+  public static string $auth_table;
   public static Application $app;
 
   public function __construct($root_path, array $config)
@@ -24,7 +26,10 @@ class Application
     $this->request = new Request();
     $this->response = new Response();
     $this->database = new Database($config['DATABASE']);
+    self::$auth_table = $config['AUTH_TABLE'] ?? 'users';
     $this->router = new Router($this->request, $this->response);
+
+    if (!isset(static::$auth)) static::$auth = Session::get('auth');
   }
 
   public function run()
@@ -62,8 +67,8 @@ class Application
     return '';
   }
 
-  public function alert($message, $type)
+  public static function alert($message, $type)
   {
-    $this->session->set('alert', new Alert($message, $type));
+    Session::set('alert', new Alert($message, $type));
   }
 }

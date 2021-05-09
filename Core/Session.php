@@ -10,17 +10,17 @@ class Session
         session_start();
     }
 
-    public function get($key)
+    public static function get($key)
     {
         return key_exists($key, $_SESSION) ? $_SESSION[$key] : null;
     }
 
-    public function set($key, $value)
+    public static function set($key, $value)
     {
         $_SESSION[$key] = $value;
     }
 
-    public function remove($key)
+    public static function remove($key)
     {
         unset($_SESSION[$key]);
     }
