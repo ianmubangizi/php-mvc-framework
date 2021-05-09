@@ -3,9 +3,9 @@
 namespace Mubangizi\Controllers;
 
 use Mubangizi\Models\User;
-use Mubangizi\Models\Auth;
 use Mubangizi\Core\Request;
 use Mubangizi\Core\Response;
+use Mubangizi\Core\Model\Auth;
 use Mubangizi\Core\Controller;
 use Mubangizi\Core\Application;
 use Mubangizi\Core\Widget\Alert;
@@ -19,9 +19,11 @@ class AuthController extends Controller
     $auth = new Auth();
     if ($request->is('post')) {
       $auth->data($request->body());
-      if ($auth->is_valid()) {
-        $auth->login();
+      if ($auth->is_valid() && $auth->login()) {
+        Application::alert("Welcome your profile", Alert::SUCCESS);
+        return $response->redirect('/profile/1/test-user');
       }
+      Application::alert("Incorrect credentials", Alert::DANGER);
     }
     return $this->render('auth/login', [
       'model' => $auth
@@ -35,7 +37,7 @@ class AuthController extends Controller
     if ($request->is('post')) {
       $user->data($request->body());
       if ($user->is_valid() && $user->save()) {
-        Application::$app->alert("Welcome $user, you have created your new account", Alert::SUCCESS);
+        Application::alert("Welcome $user, you have created your new account", Alert::SUCCESS);
         return $response->redirect('/');
       }
     }

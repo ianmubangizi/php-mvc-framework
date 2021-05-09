@@ -2,7 +2,7 @@
 
 namespace Mubangizi\Models;
 
-use Mubangizi\Core\Model;
+use Mubangizi\Core\Model\Model;
 
 class Contact extends Model
 {
