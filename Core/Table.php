@@ -79,11 +79,9 @@ abstract class Table extends Model
         $table = static::table_name();
         $where = implode(' AND ', array_map(fn ($key) => "$key = :$key", $keys));
         $statement = static::prepare("SELECT * FROM $table WHERE $where;");
-        var_dump($statement);
         foreach ($query as $key => $value) {
             $statement->bindValue(":$key", $value);
         }
-        var_dump($statement);
         $statement->execute();
         return $statement->fetchObject(static::class);
     }
