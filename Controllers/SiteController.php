@@ -22,7 +22,7 @@ class SiteController extends Controller
     if ($request->is('post')) {
       $form->data($request->body());
       if ($form->is_valid() && $form->send()) {
-        Application::$app->alert("Your message has been sent.", Alert::SUCCESS);
+        Application::alert("Your message has been sent.", Alert::SUCCESS);
       }
     }
 
