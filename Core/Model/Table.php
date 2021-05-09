@@ -1,8 +1,8 @@
 <?php
 
-namespace Mubangizi\Core;
+namespace Mubangizi\Core\Model;
 
-use Mubangizi\Core\Model;
+use Mubangizi\Core\Application;
 
 abstract class Table extends Model
 {

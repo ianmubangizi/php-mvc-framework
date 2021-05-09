@@ -3,7 +3,7 @@
 
 namespace Mubangizi\Core\Form;
 
-use Mubangizi\Core\Model;
+use Mubangizi\Core\Model\Model;
 use Mubangizi\Core\Widget\Form\Attributable;
 use Mubangizi\Core\Widget\Form\Button;
 use Mubangizi\Core\Widget\Form\Input;

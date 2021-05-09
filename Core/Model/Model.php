@@ -1,12 +1,12 @@
 <?php
 
-namespace Mubangizi\Core;
+namespace Mubangizi\Core\Model;
 
 abstract class Model
 {
 
-  public $errors = [];
-  public $validation_messages = [
+  private $errors = [];
+  private $validation_messages = [
     self::RULE_MIN => '{attribute} must be at least {rule} characters.',
     self::RULE_MAX => '{attribute} must not be more than {rule} characters.',
     self::RULE_REGEX => '{message}',

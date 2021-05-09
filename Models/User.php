@@ -2,13 +2,11 @@
 
 namespace Mubangizi\Models;
 
-use Mubangizi\Core\Table;
+use Mubangizi\Core\Model\Auth;
 
-class User extends Table
+class User extends Auth
 {
 
-  public $email;
-  public $password;
   public $last_name;
   public $joined_at;
   public $first_name;
@@ -20,11 +18,6 @@ class User extends Table
   public const STATUS_INACTIVE = 0;
   public const STATUS_DEACTIVATED = -1;
 
-
-  public static function table_name(): string
-  {
-    return 'users';
-  }
 
   public function table_columns(): array
   {

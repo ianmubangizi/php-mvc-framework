@@ -2,7 +2,7 @@
 
 namespace Mubangizi\Core\Form;
 
-use Mubangizi\Core\Model;
+use Mubangizi\Core\Model\Model;
 
 class Form
 {
