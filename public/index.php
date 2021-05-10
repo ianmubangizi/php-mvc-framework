@@ -8,8 +8,10 @@ use Mubangizi\Controllers\SiteController;
 use Mubangizi\Controllers\AuthController;
 use Mubangizi\Middlewares\AuthMiddleware;
 
-$dotenv = Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
+if (!$_ENV['PRODUCTION']) {
+	$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+	$dotenv->load();
+}
 
 $config = require(__DIR__ . "/../config.php");
 $app = new Application(dirname(__DIR__), $config);
