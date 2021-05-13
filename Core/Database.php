@@ -2,6 +2,7 @@
 
 namespace Mubangizi\Core;
 
+use Mubangizi\Core\Exception\HttpException;
 use \PDO;
 
 class Database
@@ -16,8 +17,9 @@ class Database
       $this->db = new PDO($dsn);
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $this->apply_migrations();
-    } catch (\PDOException $e) {
-      throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    } catch (\PDOException $error) {
+      Application::log("Error:[PDOException] - Message:[{$error->getMessage()}] Location:[{$error->getFile()}:{$error->getLine()}]");
+      throw new HttpException('Could not connect to Database', 500);
     }
   }
 
