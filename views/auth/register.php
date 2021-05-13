@@ -7,7 +7,7 @@ use Mubangizi\Core\Form\Form;
 $form = new Form($model);
 ?>
 
-<?= $form::open('post', '', ['py-2', 'm-3']) ?>
+<?= $form::open('post') ?>
 <div class="d-grid col-md-5 col-lg-4 gap-3 p-4 mx-auto shadow bg-body rounded">
   <h1>
     Register
