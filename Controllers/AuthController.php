@@ -8,6 +8,7 @@ use Mubangizi\Core\Response;
 use Mubangizi\Core\Model\Auth;
 use Mubangizi\Core\Controller;
 use Mubangizi\Core\Application;
+use Mubangizi\Core\Form\Form;
 use Mubangizi\Core\Widget\Alert;
 
 class AuthController extends Controller
@@ -26,7 +27,7 @@ class AuthController extends Controller
       Application::alert("Incorrect credentials", Alert::DANGER);
     }
     return $this->render('auth/login', [
-      'model' => $auth
+      'form' => new Form($auth)
     ]);
   }
 
@@ -43,7 +44,7 @@ class AuthController extends Controller
     }
 
     return $this->render('auth/register', [
-      'model' => $user,
+      'form' => new Form($user)
     ]);
   }
 }

@@ -5,6 +5,7 @@ namespace Mubangizi\Controllers;
 use Mubangizi\Core\Application;
 use Mubangizi\Core\Request;
 use Mubangizi\Core\Controller;
+use Mubangizi\Core\Form\Form;
 use Mubangizi\Core\Widget\Alert;
 use Mubangizi\Models\Contact;
 
@@ -27,7 +28,7 @@ class SiteController extends Controller
     }
 
     return $this->render('contact', [
-      'model' => $form
+      'form' => new Form($form)
     ]);
   }
 }
