@@ -8,7 +8,7 @@ use Mubangizi\Controllers\SiteController;
 use Mubangizi\Controllers\AuthController;
 use Mubangizi\Middlewares\AuthMiddleware;
 
-if (!$_ENV['PRODUCTION']) {
+if (!isset($_ENV['PRODUCTION'])) {
 	$dotenv = Dotenv::createImmutable(dirname(__DIR__));
 	$dotenv->load();
 }
