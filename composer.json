@@ -18,7 +18,8 @@
     "ext-pdo": "*",
     "ext-json": "*",
     "ext-fileinfo": "*",
-    "vlucas/phpdotenv": "*"
+    "vlucas/phpdotenv": "*",
+    "twig/twig": "^3.3"
   },
   "require-dev": {
     "ext-curl": "*",
