@@ -3,6 +3,7 @@
 namespace Mubangizi\Core;
 
 use Mubangizi\Core\Widget\Alert;
+use Mubangizi\Core\Exception\HttpException;
 
 class Application
 {
@@ -25,6 +26,19 @@ class Application
     $this->session = new Session();
     $this->request = new Request();
     $this->response = new Response();
+
+    set_exception_handler(function (\Throwable $error) {
+      if ($error instanceof HttpException) {
+        $this->response->set_status($error->getCode());
+      } else {
+        $this->response->set_status(500);
+      }
+      echo (new View)->render('error', [
+        'code' => $error->getCode(),
+        'message' => $error->getMessage()
+      ]);
+    });
+
     $this->database = new Database($config['DATABASE']);
     self::$auth_table = $config['AUTH_TABLE'] ?? 'users';
     $this->router = new Router($this->request, $this->response);
