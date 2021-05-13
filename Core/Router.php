@@ -72,42 +72,35 @@ class Router
 
     $match = array_filter($this->routes[$method], $match_route);
 
-    try {
-      if ($match) {
-        $route = array_values($match)[0];
-        [$controller, $function] = $route->action;
+    if ($match) {
+      $route = array_values($match)[0];
+      [$controller, $function] = $route->action;
 
-        Application::$app->set_controller(new $controller());
+      Application::$app->set_controller(new $controller());
 
-        foreach ($route->middlewares as $middleware) {
-          $middleware = new $middleware();
+      foreach ($route->middlewares as $middleware) {
+        $middleware = new $middleware();
 
-          $middleware->route = $route;
-          $middleware->params = $params;
+        $middleware->route = $route;
+        $middleware->params = $params;
 
-          $middleware->app = Application::$app;
-          $middleware->controller = Application::$app->get_controller();
+        $middleware->app = Application::$app;
+        $middleware->controller = Application::$app->get_controller();
 
-          $middleware->request = $this->request;
-          $middleware->response = $this->response;
-        }
-
-        return call_user_func(
-          [
-            Application::$app->get_controller(), $function
-          ],
-          $this->request,
-          $this->response,
-          $params
-        );
-      } else {
-        throw new HttpException('Page not Found', 404);
+        $middleware->request = $this->request;
+        $middleware->response = $this->response;
       }
-    } catch (\Exception $error) {
-      return (new View)->render('error', [
-        'code' => $error->getCode(),
-        'message' => $error->getMessage()
-      ]);
+
+      return call_user_func(
+        [
+          Application::$app->get_controller(), $function
+        ],
+        $this->request,
+        $this->response,
+        $params
+      );
+    } else {
+      throw new HttpException('Page not Found', 404);
     }
   }
 }
