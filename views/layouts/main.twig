@@ -1,0 +1,16 @@
+{% extends "layouts/base.twig" %}
+{% block content %}
+	<nav>
+		{% block navigation %}
+			{{ include('partials/navbar.twig') }}
+		{% endblock %}
+	</nav>
+	<main class="container-fluid">
+		{% block main %}{% endblock %}
+	</main>
+	<footer class="container">
+		{% block footer %}
+			{{ include('partials/footer.twig') }}
+		{% endblock %}
+	</footer>
+{% endblock %}
